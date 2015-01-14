@@ -145,9 +145,21 @@ function flushMetrics() {
         delete(metrics.gauges[gauge_key]);
       }
     }
+
+  // toggle metrics resulting from process_metrics on/off
+    conf.metric_toggles = !== undefined ? conf.metric_toggles : {};
+    conf.metric_toggles["std"] = !== undefined ? conf.metric_toggles["std"] : true;
+    conf.metric_toggles["upper"] = !== undefined ? conf.metric_toggles["upper"] : true;
+    conf.metric_toggles["lower"] = !== undefined ? conf.metric_toggles["lower"] : true;
+    conf.metric_toggles["count"] = !== undefined ? conf.metric_toggles["count"] : true;
+    conf.metric_toggles["count_ps"] = !== undefined ? conf.metric_toggles["count_ps"] : true;
+    conf.metric_toggles["sum"] = !== undefined ? conf.metric_toggles["sum"] : true;
+    conf.metric_toggles["sum_squares"] = !== undefined ? conf.metric_toggles["sum_squares"] : true;
+    conf.metric_toggles["mean"] = !== undefined ? conf.metric_toggles["mean"] : true;
+    conf.metric_toggles["median"] = !== undefined ? conf.metric_toggles["median"] : true;
   });
 
-  pm.process_metrics(metrics_hash, flushInterval, time_stamp, function emitFlush(metrics) {
+  pm.process_metrics(metrics_hash, conf.metric_toggles, flushInterval, time_stamp, function emitFlush(metrics) {
     backendEvents.emit('flush', time_stamp, metrics);
   });
 
