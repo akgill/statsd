@@ -57,6 +57,20 @@ Optional Variables:
                     If disabled, it is up to the backends to sanitize keynames
                     as appropriate per their storage requirements.
 
+  metricToggles:    object that can be used to specify metrics not to record.  By default all metrics are on
+                    [default:
+                    {
+                      "std": true,
+                      "upper": true,
+                      "lower": true,
+                      "count": true,
+                      "count_ps": true,
+                      "sum": true,
+                      "sum_squares": true,
+                      "mean": true,
+                      "median": true,
+                    }]
+
   console:
     prettyprint:    whether to prettyprint the console backend
                     output [true or false, default: true]
